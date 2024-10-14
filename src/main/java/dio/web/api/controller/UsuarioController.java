@@ -3,10 +3,7 @@ package dio.web.api.controller;
 import dio.web.api.model.Usuario;
 import dio.web.api.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,8 +21,14 @@ public class UsuarioController {
     public Usuario getOne(@PathVariable("username") String username){
         return repository.findByUserName(username);
     }
+
     @DeleteMapping("/users/{id}")
-    public void delete(@PathVariable("id") Integer id){
+    public void deleteUser(@PathVariable("id") Integer id){
         repository.deleteById(id);
+    }
+
+    @PostMapping("/users")
+    public void postUser(@RequestBody Usuario usuario){
+        repository.save(usuario);
     }
 }
